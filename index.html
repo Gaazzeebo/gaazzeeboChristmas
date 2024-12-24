@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Gaazzeebo & EDGAR - Christmas Code Showcase - Enhanced Edition" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ff7300" />
+    <meta name="author" content="Gaazzeebo" />
+    <meta name="keywords" content="code, christmas, showcase, edgar, gaazzeebo" />
+    
+    <title>Gaazzeebo & EDGAR - Christmas Code Showcase</title>
+
+    <!-- Preload critical assets -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap" as="style" />
+    <link rel="preload" href="style.css" as="style" />
+    <link rel="preload" href="script.js" as="script" />
+
+    <!-- Fonts & Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Enhanced Modal Styles -->
+    <style>
+        /* Modal Base Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            padding: 1rem;
+        }
+
+        .modal-content.xmas-content {
+            background: linear-gradient(135deg, #1a1f35 0%, #2d1f35 100%);
+            border: 2px solid #ff7300;
+            box-shadow: 0 0 30px rgba(0, 191, 255, 0.3);
+            padding: 2rem;
+            width: 95%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            border-radius: 12px;
+        }
+
+        /* Improved Scrollbar for Modal Content */
+        .modal-content.xmas-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content.xmas-content::-webkit-scrollbar-track {
+            background: rgba(255, 115, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        .modal-content.xmas-content::-webkit-scrollbar-thumb {
+            background: #ff7300;
+            border-radius: 4px;
+        }
+
+        /* Header Styles */
+        .modal-header {
+            text-align: center;
+            padding-bottom: 1rem;
+        }
+
+        .glowing-text {
+            color: #ff7300;
+            font-size: min(2.2rem, 5vw);
+            text-shadow: 0 0 10px rgba(255, 115, 0, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sparkle-divider {
+            color: #00bfff;
+            letter-spacing: 3px;
+            margin-top: 1rem;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        /* ASCII Art Container */
+        .ascii-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1rem 0;
+        }
+
+        .ascii-art {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            white-space: pre;
+            line-height: 1.2;
+            font-size: min(1em, 3vw);
+        }
+
+        .ascii-art.tree {
+            color: #ff7300;
+            text-shadow: 0 0 5px rgba(255, 115, 0, 0.3);
+        }
+
+        .ascii-art.signature {
+            color: #00bfff;
+            margin-top: 1rem;
+            text-shadow: 0 0 5px rgba(0, 191, 255, 0.3);
+        }
+
+        /* Message Section */
+        .message-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .quote-container {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .typing-effect {
+            margin: 0;
+            border-right: 2px solid #ff7300;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink 0.75s step-end infinite;
+        }
+
+        .edgar-quote {
+            color: #ff7300;
+            font-size: min(1.2rem, 4vw);
+            font-style: italic;
+        }
+
+        .festive-message {
+            color: #fff;
+            font-size: min(1.1rem, 3.5vw);
+            margin: 0.5rem 0;
+        }
+
+        .snowflake-icon {
+            display: inline-block;
+            animation: rotate 3s linear infinite;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            width: 100%;
+            padding: 1rem 0;
+        }
+
+        .stat-item {
+            background: rgba(255, 115, 0, 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-icon {
+            font-size: 1.4rem;
+        }
+
+        .stat-label {
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .stat-value {
+            color: #00bfff;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Footer Section */
+        .modal-footer {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            padding-top: 1rem;
+        }
+
+        .credit-text {
+            color: #ccc;
+            margin: 0;
+        }
+
+        .heart {
+            color: #ff0066;
+            animation: pulse 1.5s ease infinite;
+        }
+
+        .sparkle {
+            animation: twinkle 1.5s ease-in-out infinite;
+        }
+
+        .button-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .fancy-btn {
+            background: linear-gradient(45deg, #ff7300, #00bfff);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            color: white;
+            font-size: 1.1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .fancy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 191, 255, 0.4);
+        }
+
+        .btn-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Animations */
+        @keyframes glow {
+            from { text-shadow: 0 0 5px rgba(255, 115, 0, 0.5); }
+            to { text-shadow: 0 0 20px rgba(255, 115, 0, 0.8); }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .modal-content.xmas-content {
+                padding: 1.5rem;
+                gap: 1rem;
+                width: 98%;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ascii-art.tree {
+                font-size: 0.6em;
+            }
+            
+            .ascii-art.signature {
+                font-size: 0.5em;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .modal-content.xmas-content {
+                padding: 3rem;
+            }
+        }
+
+        /* Height-based Media Queries */
+        @media (max-height: 800px) {
+            .modal-content.xmas-content {
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .sparkle-divider {
+                margin: 0.5rem 0;
+            }
+            
+            .ascii-container {
+                gap: 1rem;
+            }
+            
+            .stats-grid {
+                padding: 0.5rem 0;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .ascii-art.signature {
+                display: none;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Animation Performance */
+        @media (prefers-reduced-motion: reduce) {
+            .glowing-text,
+            .sparkle-divider,
+            .snowflake-icon,
+            .heart,
+            .sparkle {
+                animation: none;
+            }
+            
+            .fancy-btn:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Snow Container with improved performance -->
+    <div id="snow-container" aria-hidden="true"></div>
+
+    <!-- Main Content Container -->
+    <main class="main-container">
+        <!-- Enhanced Editor Window -->
+        <div class="editor-window" role="application" aria-label="Code Editor">
+            <!-- Editor Header with Accessibility -->
+            <div class="editor-header" role="toolbar" aria-label="Editor Controls">
+                <div class="editor-buttons" aria-label="Window Controls">
+                    <span class="editor-btn close" role="button" aria-label="Close"></span>
+                    <span class="editor-btn minimize" role="button" aria-label="Minimize"></span>
+                    <span class="editor-btn maximize" role="button" aria-label="Maximize"></span>
+                </div>
+                <div class="editor-title" role="heading" aria-level="1">EDGAR.js</div>
+
+                <!-- Enhanced Controls -->
+                <div class="editor-controls" role="group" aria-label="Playback Controls">
+                    <label class="speed-label" for="speedSlider">
+                        Speed:
+                        <input
+                            type="range"
+                            id="speedSlider"
+                            class="speed-slider"
+                            min="0"
+                            max="0.9"
+                            step="0.1"
+                            value="0.5"
+                            title="Typing Speed"
+                            aria-label="Typing Speed Control"
+                        />
+                    </label>
+
+                    <button id="pauseBtn" class="editor-ctrl-btn" aria-label="Pause">⏸️ Pause</button>
+                    <button id="restartBtn" class="editor-ctrl-btn" aria-label="Restart">🔄 Restart</button>
+                    <button id="musicToggleBtn" class="editor-ctrl-btn" aria-label="Toggle Music">🎵 Music ON</button>
+                </div>
+            </div>
+
+            <!-- Main Code Area with Enhanced Accessibility -->
+            <div class="editor-body" role="region" aria-label="Code Display">
+                <div class="line-numbers" aria-hidden="true"></div>
+                <div class="code-content" role="textbox" aria-label="Code Content" aria-live="polite"></div>
+            </div>
+        </div>
+
+        <!-- Enhanced Festive Modal -->
+        <div id="festiveModal" class="modal hidden" role="dialog" aria-labelledby="festiveTitle" aria-hidden="true">
+            <div class="modal-content">
+                <h2 id="festiveTitle">Merry Christmas!</h2>
+                <p>EDGAR & Gaazzeebo wish you a holiday full of fun, code, and a touch of sass!</p>
+                <div class="modal-actions">
+                    <button id="closeModalBtn" class="editor-ctrl-btn">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Final Xmas Modal -->
+        <div id="xmasFinalModal" class="modal hidden" role="dialog" aria-labelledby="xmasTitle" aria-hidden="true">
+            <div class="modal-content xmas-content">
+                <div class="modal-header">
+                    <h2 id="xmasTitle" class="glowing-text">EDGAR's Holiday Finale</h2>
+                    <div class="sparkle-divider">✧･ﾟ✧･ﾟ★･ﾟ✧･ﾟ✧</div>
+                </div>
+                
+                <!-- Enhanced ASCII Art Section -->
+                <div class="ascii-container">
+                    <pre class="ascii-art tree" aria-label="Decorative Christmas Tree">
+              ⭐
+           ╱▆▆▆╲
+          ╱▆▆▆▆▆╲
+         ╱▆▆▆▆▆▆▆╲
+        ╱▆▆▆▆▆▆▆▆▆╲
+       ╱▆▆▆▆▆▆▆▆▆▆▆╲
+      ╱▆▆▆▆▆▆▆▆▆▆▆▆▆╲
+         ║║║║║║</pre>
+                    
+                    <pre class="ascii-art signature" aria-label="EDGAR Signature">
+   ______ ____   _____ ___    ____  
+  |  ____|  _ \ / ____|__ \  |___ \ 
+  | |__  | |_) | |  __   ) |   __) |
+  |  __| |  _ <| | |_ | / /   |__ < 
+  | |____| |_) | |__| |/ /_   ___) |
+  |______|____/ \_____|____| |____/ </pre>
+                </div>
+
+                <!-- Enhanced Message Section -->
+                <div class="message-section">
+                    <div class="quote-container">
+                        <p class="typing-effect">
+                            <span class="edgar-quote">"Ho ho ho! Time to wrap up this code like a present! 🎁"</span>
+                        </p>
+                    </div>
+                    
+                    <div class="message-container">
+                        <p class="festive-message">
+                            <span class="snowflake-icon">❄️</span>
+                            Thanks for joining me on this merry coding adventure!
+                            <span class="snowflake-icon">❄️</span>
+                        </p>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-icon">📝</span>
+                            <span class="stat-label">Lines of Joy:</span>
+                            <span class="stat-value">80+</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⚡</span>
+                            <span class="stat-label">Holiday Spirit:</span>
+                            <span class="stat-value">100%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">🎄</span>
+                            <span class="stat-label">Christmas Magic:</span>
+                            <span class="stat-value">∞</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Section -->
+                <div class="modal-footer">
+                    <p class="credit-text">
+                        <span class="sparkle">✨</span>
+                        Crafted with <span class="heart">♥</span> by Gaazzeebo
+                        <span class="sparkle">✨</span>
+                    </p>
+                    <div class="button-container">
+                        <button id="closeXmasBtn" class="editor-ctrl-btn fancy-btn">
+                            <span class="btn-icon">🎄</span>
+                            Close & Celebrate
+                            <span class="btn-icon">🎄</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Enhanced Audio Player -->
+    <audio id="bgMusic" loop preload="none">
+        <source
+            src="https://cdn.pixabay.com/download/audio/2021/11/20/audio_1f604fa2f9.mp3?filename=christmas-intro-108934.mp3"
+            type="audio/mpeg"
+        />
+        <p>Your browser does not support the audio element.</p>
+    </audio>
+
+    <!-- Enhanced Progress Bar -->
+    <div class="progress-bar" role="progressbar" aria-label="Code Typing Progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-fill"></div>
+    </div>
+
+    <!-- Enhanced Footer -->
+    <footer class="page-footer" role="contentinfo">
+        <p class="footer-glow">
+            © 2023 Gaazzeebo. EDGAR says: "Keep it sassy, keep it merry!"
+            <span class="footer-credits">Created with ❄️ and 🎄</span>
+        </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js" defer></script>
+
+    <!-- Fallback for No JavaScript -->
+    <noscript>
+        <div class="noscript-message">
+            This application requires JavaScript to run. Please enable JavaScript to experience the full functionality.
+        </div>
+    </noscript>
+</body>
+</html>
